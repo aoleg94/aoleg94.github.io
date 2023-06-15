@@ -1,0 +1,352 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Decode error codes from OpenGL, Win32, COM, Vulkan, HTTP">
+  <meta name="author" content="">
+
+  <title>Decoder 💍 - Look up error codes</title>
+
+  <!-- Custom fonts for this template-->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+  <!-- Custom styles for this template-->
+  <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
+  <style>
+     .link-like { cursor: pointer; }
+     .link-like:hover #content { text-decoration: underline; color: #4e73df !important;}
+     #searchInput { font-size: 1rem; }
+     @media (max-width: 767px) {
+       #logo {margin-right: 1rem;}
+     }
+  </style>
+
+<!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-SY9Y7BTLR3"></script>
+  <script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);}; gtag('js', new Date()); gtag('config', 'G-SY9Y7BTLR3', { 'anonymize_ip': true });</script>
+  <!-- End Google Analytics -->
+
+</head>
+
+<body id="page-top">
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+      <!-- Main Content -->
+      <div id="content" style=min-height:100vh>
+
+        <!-- Topbar -->
+        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+          
+          <a class="d-flex align-items-center justify-content-center" href="." id=logo>
+            <div class="sidebar-brand-text mx-2"><b>Decoder</b></div>
+            <div class="sidebar-brand-icon rotate-n-15">
+              <i class="fas fa-ring fa-lg"></i>
+            </div>
+          </a>
+
+          <!-- Topbar Search -->
+          <form class="d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 w-75 navbar-search" onSubmit="return false" style=max-width:700px>
+            <div class="input-group">
+              <input id=searchInput type="text" class="form-control bg-light border-0 small" placeholder="Search error codes" aria-label="Search" aria-describedby="basic-addon2">
+              <div class="input-group-append">
+                <button class="btn btn-primary" type="button" id=pasteButton title="Sorry" data-content="Your web browser does not support the clipboard.readText API. You'll have to paste manually (e.g. with Ctrl-V or your browser's menus).">
+                  <i class="fas fa-paste"></i> Paste
+                </button>
+              </div>
+            </div>
+          </form>
+
+        </nav>
+        <!-- End of Topbar -->
+
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+          <div id=searchResults></div>
+          <div id=aboutPage>
+            <p>Enter a code above to find its corresponding name and message.
+            <div class="row">
+              <div class="col-lg-6 mb-4">
+                <div class="card shadow mb-4 ">
+                  <div class="card-header py-3 border-left-danger">
+                    <h6 class="m-0 font-weight-bold text-primary">Try some examples</h6>
+                  </div>
+                  <div class="card-body">
+                    <ul style=margin:0>
+                      <li>
+                    What does HTTP status code <a href=?q=206 onClick="return searchFor(this)">206</a> mean again? How about <a href=?q=504 onClick="return searchFor(this)">504</a>, or <a href=?q=418 onClick="return searchFor(this)">418</a>?
+                    <li>
+                    What could <a href=?q=Windows%20error%20-2005270521 onClick="return searchFor(this)">Windows error -2005270521</a> possibly indicate?
+                    <li>
+                    Which OpenGL texture filtering mode is <a href=?q=0x2703 onClick="return searchFor(this)">0x2703</a>?
+                  </ul>
+                  </div>
+                </div>
+                <div class="card shadow mb-4 ">
+                  <div class="card-header py-3 border-left-info">
+                    <h6 class="m-0 font-weight-bold text-primary">Current supported APIs</h6>
+                  </div>
+                  <div class="card-body">
+                    <ul>
+                      <li>OpenGL
+                      <li>Vulkan
+                      <li>Windows (HRESULT, Win32, NTSTATUS, and Windows Installer codes)
+                      <li>HTTP
+                      <li>Linux kernel (errno.h)
+                    </ul>
+                    Need something else? <a href="https://github.com/jdarpinian/decoder-issues/issues">Request more codes here</a>.
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-6 mb-4">
+                <div class="card shadow mb-4">
+                  <div class="card-header py-3 border-left-primary">
+                    <h6 class="m-0 font-weight-bold text-primary">About Decoder <i class="fas fa-ring fa-lg rotate-n-15"></i></h6>
+                  </div>
+                  <div class="card-body">
+                    Decoder <i class="fas fa-ring rotate-n-15"></i> is a tool to look up error and status codes.
+                    Enter a code in the search box to show the name and description. Decoder <i class="fas fa-ring rotate-n-15"></i> automatically strips text around the codes and handles
+                    translating error codes e.g. from decimal to hex or from HRESULT to NTSTATUS. Click any result for a shortcut to Google search.
+                    <br/><br/>
+                    Decoder <i class="fas fa-ring rotate-n-15"></i> was created by <a href="//james.darpinian.com/resume/">James Darpinian</a>. <a href=//twitter.com/modeless><i class="fab fa-twitter fa-fw"></i> @modeless</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p>
+        </div>
+        <!-- /.container-fluid -->
+
+      </div>
+      <!-- End of Main Content -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+  </div>
+  <!-- End of Page Wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  <!-- Bootstrap core JavaScript-->
+  <script
+    src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o" crossorigin="anonymous"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="js/sb-admin-2.min.js"></script>
+
+  <script>
+    (function() {
+      var cx = 'partner-pub-2721832200301609:y9qw3moyzth';
+      var gcse = document.createElement('script');
+      gcse.type = 'text/javascript';
+      gcse.async = true;
+      gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(gcse, s);
+    })();
+  </script>
+  <div style="height:0;overflow:hidden"> <gcse:searchbox-only autoSearchOnLoad=false  gname=googleresults style=display:none /> </div>
+
+  <script>
+    'use strict';
+
+    function searchFor(a) {
+      searchInput.value = typeof a === 'string' ? a : a.textContent;
+      addHistoryEntry();
+      searchInput.oninput();
+      return false;
+    }
+
+    document.body.onpaste = (e) => {
+      if (e.defaultPrevented) return;
+      searchFor(e.clipboardData.getData('text/plain'));
+      e.preventDefault();
+      return false;
+    };
+    window.onkeydown = (e) => {
+      // Focus search box when pressing non-special keys.
+      if (!e.ctrlKey && !e.altKey && !e.metaKey &&
+          e.keyCode > 32 && e.keyCode < 127) {
+        searchInput.focus();
+      }
+    }
+
+    document.getElementById('pasteButton').onclick = async () => {
+      if (!navigator.clipboard || !navigator.clipboard.readText) {
+        $('#pasteButton').popover({trigger: "focus"}).popover('show');
+        return;
+      }
+      searchInput.value = await navigator.clipboard.readText();
+      addHistoryEntry();
+      searchInput.oninput();
+    };
+
+    function* regexAllMatches(string, regex) {
+      let match = regex.exec(string);
+      while(match) {
+        yield match[0];
+        match = regex.exec(string);
+      }
+    }
+
+    function signedToUnsigned(n) {
+      return n >= 0 ? n : (n & 0x7fffffff) + Math.pow(2, 31);
+    }
+
+    function getUrlWithQuery(query) {
+      return location.origin.concat(location.pathname).concat(query ? "?q=" + encodeURIComponent(query) : '').concat(location.hash)
+    }
+
+    let searchResults = document.getElementById('searchResults');
+    let searchInput = document.getElementById('searchInput');
+    let lastState = new URLSearchParams(window.location.search).get('q') || '';
+    searchInput.value = lastState;
+    searchInput.focus();
+    searchInput.oninput = async () => {
+      if (db == null) {
+        if (waitingForLoad) return;
+        waitingForLoad = true;
+        db = await dbLoad;
+        waitingForLoad = false;
+      }
+      let query = searchInput.value;
+      history.replaceState("", "", getUrlWithQuery(query));
+
+      searchResults.innerHTML = '';
+
+      let numCodesFound = 0;
+
+      for (let match of regexAllMatches(query, /-?(0x)?[0-9a-f]+/ig)) {
+        if (match.length < 4 && !/[0-9]/.test(match)) continue;
+        let code;
+        if (/[a-f]/i.test(match)) {
+          code = parseInt(match, 16);
+        } else {
+          code = parseInt(match);
+        }
+        code = signedToUnsigned(code);
+
+        numCodesFound++;
+
+        let numMessagesFound = 0;
+
+        let template = document.createElement('template');
+        template.innerHTML = `<div class="d-sm-flex align-items-center justify-content-between mb-2 mt-2">
+                                <h1 class="h4 mb-0 text-gray-800" id=heading>Code: </h1>
+                              </div>`;
+        template.content.getElementById('heading').textContent += `${code}`;
+        if (code > 9) {
+          template.content.getElementById('heading').textContent += ` or 0x${code.toString(16)}`;
+        }
+        if (code != (code | 0)) {
+          template.content.getElementById('heading').textContent += ` or ${code | 0}`;
+        }
+        searchResults.appendChild(template.content);
+
+        for(let api of Object.keys(db)) {
+          let codes = [code];
+          if (api == 'windows') {
+            if ((code & 0xFFFF0000) == (0x80070000 | 0)) {
+              // HRESULT created from Win32
+              codes.push(code & 0xFFFF);
+            }
+            if (code & (1 << 28)) {
+              // HRESULT created from NTSTATUS
+              codes.push(signedToUnsigned(code & ~(1 << 28)));
+            }
+          }
+          for (let code of codes) {
+            for (let message of db[api][code] || []) {
+              numMessagesFound++;
+              template.innerHTML = `
+                  <div class="mb-4 link-like">
+                    <div class="card shadow h-100 py-2" id=border>
+                      <div class="card-body" href="#" id=card>
+                        <div class="row no-gutters align-items-center">
+                          <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-uppercase mb-1" id=label></div>
+                            <div class="h5 mb-0 text-gray-800 link-like" id=content></div>
+                          </div>
+                          <div class="btn-circle btn-google"><i class="fab fa-google fa-fw"></i></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>`;
+              template.content.getElementById('border').classList.add('border-left-danger');
+              template.content.getElementById('label').classList.add('text-danger');
+              template.content.getElementById('label').textContent = api;
+              template.content.getElementById('content').textContent = message;
+              template.content.getElementById('card').onclick = template.content.getElementById('card').onauxclick = (e) => {
+                if (e.button == 0 || e.button == 1) {
+                  google.search.cse.element.getElement('googleresults').execute(message);
+                  e.preventDefault();
+                }
+              }
+              template.content.getElementById('card').onpaste = e => e.preventDefault();
+              searchResults.appendChild(template.content);
+            }
+          }
+        }
+        if (numMessagesFound == 0) {
+          let div = document.createElement('div');
+          div.textContent = "No matching names for this code."
+          div.style.marginLeft = "1em";
+          searchResults.appendChild(div);
+        }
+      }
+      if (numCodesFound == 0) {
+        if (query.length > 0) {
+          let div = document.createElement('div');
+          div.textContent = `No codes found in query "${query}".`
+          searchResults.appendChild(div);
+        }
+        document.getElementById('aboutPage').style.display = 'block';
+      } else {
+        document.getElementById('aboutPage').style.display = 'none';
+      }
+    };
+    function addHistoryEntry() {
+      if (searchInput.value != lastState) {
+        history.replaceState("", "", getUrlWithQuery(lastState));
+        history.pushState("", "", getUrlWithQuery(searchInput.value));
+        lastState = searchInput.value;
+      }
+    }
+    searchInput.onblur = addHistoryEntry;
+    window.onpopstate = () => {
+      searchInput.value = new URLSearchParams(window.location.search).get('q') || '';
+      lastState = searchInput.value;
+      searchInput.oninput();
+    }
+    let waitingForLoad = false;
+    let dbLoad = fetch('errors.json').then((r)=>r.json());
+    let db = null;
+    searchInput.oninput();
+  </script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v52afc6f149f6479b8c77fa569edb01181681764108816" integrity="sha512-jGCTpDpBAYDGNYR5ztKt4BQPGef1P0giN6ZGVUi835kFF88FOmmn8jBQWNgrNd8g/Yu421NdgWhwQoaOPFflDw==" data-cf-beacon='{"rayId":"7d78ffda0ab69c04","version":"2023.4.0","r":1,"token":"93a5a2f030544505bcfb91d435db8c4e","si":100}' crossorigin="anonymous"></script>
+</body>
+
+</html>
