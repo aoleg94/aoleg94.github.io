@@ -68266,5 +68266,88 @@
     "104": ["ENOTRECOVERABLE State not recoverable"],
     "105": ["EOWNERDEAD Previous owner died"],
     "106": ["ELAST Interface output queue is full", "EQFULL Interface output queue is full"]
+  },
+  "FFMPEG": {
+    "3115105544": [
+      "-1179861752 AVERROR_BSF_NOT_FOUND Bitstream filter not found"
+    ],
+    "3736644286": [
+      "-558323010 AVERROR_BUG Internal bug, should not have happened"
+    ],
+    "2897849022": [
+      "-1397118274 AVERROR_BUFFER_TOO_SMALL Buffer too small"
+    ],
+    "3166354184": [
+      "-1128613112 AVERROR_DECODER_NOT_FOUND Decoder not found"
+    ],
+    "2998582024": [
+      "-1296385272 AVERROR_DEMUXER_NOT_FOUND Demuxer not found"
+    ],
+    "3165764104": [
+      "-1129203192 AVERROR_ENCODER_NOT_FOUND Encoder not found"
+    ],
+    "3753488571": [
+      "-541478725 AVERROR_EOF End of file"
+    ],
+    "2880874427": [
+      "-1414092869 AVERROR_EXIT Immediate exit requested"
+    ],
+    "3752568763": [
+      "-542398533 AVERROR_EXTERNAL Generic error in an external library"
+    ],
+    "3015096584": [
+      "-1279870712 AVERROR_FILTER_NOT_FOUND Filter not found"
+    ],
+    "3199971767": [
+      "-1094995529 AVERROR_INVALIDDATA Invalid data found when processing input"
+    ],
+    "2812981768": [
+      "-1481985528 AVERROR_MUXER_NOT_FOUND Muxer not found"
+    ],
+    "2880417800": [
+      "-1414549496 AVERROR_OPTION_NOT_FOUND Option not found"
+    ],
+    "3131621040": [
+      "-1163346256 AVERROR_PATCHWELCOME Not yet implemented in FFmpeg, patches welcome"
+    ],
+    "2964172552": [
+      "-1330794744 AVERROR_PROTOCOL_NOT_FOUND Protocol not found"
+    ],
+    "2913709064": [
+      "-1381258232 AVERROR_STREAM_NOT_FOUND Stream not found"
+    ],
+    "3753421502": [
+      "-541545794 AVERROR_BUG2 Internal bug, should not have happened"
+    ],
+    "2981409195": [
+      "-1313558101 AVERROR_UNKNOWN Unknown error occurred"
+    ],
+    "3561836632": [
+      "-733130664 AVERROR_EXPERIMENTAL Experimental feature"
+    ],
+    "2626787583": [
+      "-1668179713 AVERROR_INPUT_CHANGED Input changed"
+    ],
+    "2626787582": [
+      "-1668179714 AVERROR_OUTPUT_CHANGED Output changed"
+    ],
+    "3486501640": [
+      "-808465656 AVERROR_HTTP_BAD_REQUEST Server returned 400 Bad Request"
+    ],
+    "3469724424": [
+      "-825242872 AVERROR_HTTP_UNAUTHORIZED Server returned 401 Unauthorized (authorization failed)"
+    ],
+    "3436169992": [
+      "-858797304 AVERROR_HTTP_FORBIDDEN Server returned 403 Forbidden (access denied)"
+    ],
+    "3419392776": [
+      "-875574520 AVERROR_HTTP_NOT_FOUND Server returned 404 Not Found"
+    ],
+    "2812791560": [
+      "-1482175736 AVERROR_HTTP_OTHER_4XX Server returned 4XX Client Error, but not one of 40{0,1,3,4}"
+    ],
+    "2812791304": [
+      "-1482175992 AVERROR_HTTP_SERVER_ERROR Server returned 5XX Server Error reply"
+    ]
   }
 }
