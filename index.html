@@ -3,7 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#1a1a1a">
 <title>QR</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
 <style>
   :root { color-scheme: light dark; }
   * { box-sizing: border-box; }
@@ -63,7 +66,8 @@
 <h1>QR</h1>
 <p class="lede">
   Text after <code>#</code> in the URL becomes a QR code &mdash; entirely
-  client-side. The fragment never leaves your browser.
+  client-side. The fragment never leaves your browser. Installable on
+  Android as a share target.
 </p>
 <textarea id="t" placeholder="Type or paste anything&hellip;" autofocus spellcheck="false"></textarea>
 <div class="row">
@@ -161,6 +165,24 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     }
   }
 
+  // Web Share Target lands at /?text=…&url=…&title=… (GET form-encoded).
+  // Pull the params, populate the field, then rewrite the URL to the hash
+  // form so refreshes/bookmarks don't carry the payload in the query.
+  function loadFromShareTarget() {
+    if (!location.search) return false;
+    const p = new URLSearchParams(location.search);
+    const parts = [];
+    for (const k of ['title', 'text', 'url']) {
+      const v = p.get(k);
+      if (v) parts.push(v);
+    }
+    if (!parts.length) return false;
+    t.value = parts.join('\n').trim();
+    const hash = '#' + encodeURIComponent(t.value);
+    history.replaceState(null, '', location.pathname + hash);
+    return true;
+  }
+
   t.addEventListener('input', () => { syncHash(); render(); });
   ec.addEventListener('change', render);
 
@@ -189,8 +211,14 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     render();
   });
 
-  loadFromHash();
+  if (!loadFromShareTarget()) loadFromHash();
   render();
+
+  if ('serviceWorker' in navigator) {
+    addEventListener('load', () => {
+      navigator.serviceWorker.register('sw.js').catch(() => {});
+    });
+  }
 })();
 </script>
 <footer>
