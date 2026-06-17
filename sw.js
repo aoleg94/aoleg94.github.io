@@ -1,40 +1,12 @@
-// Versioned cache — bump CACHE to force a refresh of cached assets.
-const CACHE = 'qr-v1';
-const ASSETS = ['./', './manifest.json', './icon.svg'];
-
-self.addEventListener('install', e => {
-  e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS)));
-  self.skipWaiting();
-});
-
+// Tombstone service worker. The QR app's SW moved to /qr/sw.js (scope /qr/).
+// This retires the old root-scoped SW on devices that installed it before the
+// move: on its next update check the browser fetches this file, and it
+// unregisters itself and reloads open clients so they hit the live network.
+self.addEventListener('install', () => self.skipWaiting());
 self.addEventListener('activate', e => {
-  e.waitUntil(
-    caches.keys().then(keys =>
-      Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k)))
-    ).then(() => self.clients.claim())
-  );
-});
-
-self.addEventListener('fetch', e => {
-  const req = e.request;
-  if (req.method !== 'GET') return;
-  const url = new URL(req.url);
-  if (url.origin !== location.origin) return;
-
-  // Share-target navigations land at /?text=…&url=… — serve cached / and let
-  // the page JS read the params. This also keeps the shared payload off
-  // GitHub's request logs (the SW intercepts before any network hit).
-  // Only the root path is the QR app; other navigations (e.g. /decoder/)
-  // must fall through to normal cache-or-network so their own page loads.
-  if (req.mode === 'navigate' && (url.pathname === '/' || url.pathname === '/index.html')) {
-    e.respondWith(
-      caches.match('./', { ignoreSearch: true })
-        .then(r => r || fetch('./'))
-    );
-    return;
-  }
-
-  e.respondWith(
-    caches.match(req).then(r => r || fetch(req))
-  );
+  e.waitUntil((async () => {
+    await self.registration.unregister();
+    const clients = await self.clients.matchAll();
+    clients.forEach(c => c.navigate(c.url));
+  })());
 });

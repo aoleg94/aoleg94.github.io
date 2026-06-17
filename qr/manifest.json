@@ -2,25 +2,24 @@
   "name": "QR — text to QR code",
   "short_name": "QR",
   "description": "Generate a QR code from text, entirely in your browser.",
-  "start_url": "/",
-  "scope": "/",
+  "start_url": "/qr/",
+  "scope": "/qr/",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#1a1a1a",
   "theme_color": "#1a1a1a",
   "icons": [
     {
-      "src": "/icon.svg",
+      "src": "/qr/icon.svg",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any maskable"
     }
   ],
   "share_target": {
-    "action": "/",
+    "action": "/qr/",
     "method": "GET",
     "params": {
-      "title": "title",
       "text": "text",
       "url": "url"
     }
