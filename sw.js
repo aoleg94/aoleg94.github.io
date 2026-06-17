@@ -24,7 +24,9 @@ self.addEventListener('fetch', e => {
   // Share-target navigations land at /?text=…&url=… — serve cached / and let
   // the page JS read the params. This also keeps the shared payload off
   // GitHub's request logs (the SW intercepts before any network hit).
-  if (req.mode === 'navigate') {
+  // Only the root path is the QR app; other navigations (e.g. /decoder/)
+  // must fall through to normal cache-or-network so their own page loads.
+  if (req.mode === 'navigate' && (url.pathname === '/' || url.pathname === '/index.html')) {
     e.respondWith(
       caches.match('./', { ignoreSearch: true })
         .then(r => r || fetch('./'))
